@@ -2,14 +2,11 @@
 
 > [Yeoman](http://yeoman.io) generator
 
-
 ## Getting Started
 
 ```
 $ npm install -g yo
 ```
-
-### Yeoman Generators
 
 To install generator-kirby from npm, run:
 

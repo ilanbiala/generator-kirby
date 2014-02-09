@@ -1,0 +1,9 @@
+Title: <%= siteTitle %>
+----
+Author: <%= siteAuthor %>
+----
+Description: <%= siteDescription %>
+----
+Keywords: <%= siteKeywords %>
+----
+Copyright: <%= siteCopyright %>

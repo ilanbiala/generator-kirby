@@ -11,7 +11,7 @@ var KirbyGenerator = yeoman.generators.Base.extend({
 
 		this.on('end', function() {
 			if (!this.options['skip-install']) {
-				this.npmInstall();
+				// this.npmInstall();
 			}
 		});
 	},
@@ -37,16 +37,15 @@ var KirbyGenerator = yeoman.generators.Base.extend({
 			message: 'Site author:'
 		}, {
 			name: 'siteDescription',
-			message: 'Site description:'
+			message: 'Site description:',
+			default: 'A nice little website.'
 		}, {
 			name: 'siteKeywords',
 			message: 'Site keywords:'
 		}, {
 			name: 'siteCopyright',
-			message: 'Copyright message'
-		}, {
-			name: 'siteCredits',
-			message: 'Site credits:'
+			message: 'Copyright message',
+			default: '© (date: Year)'
 		}];
 
 		this.prompt(prompts, function(props) {
@@ -63,16 +62,30 @@ var KirbyGenerator = yeoman.generators.Base.extend({
 	},
 
 	app: function() {
-		this.mkdir('app');
-		this.mkdir('app/templates');
+		this.mkdir('kirby');
+		this.copy('kirby/.gitignore', 'kirby/.gitignore');
+		this.copy('kirby/.htaccess', 'kirby/.htaccess');
+		this.copy('kirby/index.php', 'kirby/index.php');
+		this.copy('kirby/license.md', 'kirby/license.md');
+		this.copy('kirby/readme.md', 'kirby/readme.md');
+		this.directory('kirby/assets/', 'kirby/assets/');
+		this.directory('kirby/kirby/', 'kirby/kirby/');
+		this.directory('kirby/site/', 'kirby/site/');
+		this.directory('kirby/content/', 'kirby/content/');
 
-		this.copy('_package.json', 'package.json');
-		this.copy('_bower.json', 'bower.json');
+		this.template('_package.json', 'kirby/package.json');
+		this.template('kirby/site/config/config.php', 'kirby/site/config/config.php');
+		this.template('kirby/content/site.txt', 'kirby/content/site.txt');
 	},
 
-	projectfiles: function() {
-		this.copy('editorconfig', '.editorconfig');
-		this.copy('jshintrc', '.jshintrc');
+	finish: function() {
+		// Give the user info on how to start developing
+		var howToInstall =
+			'Nice! Now run ' + chalk.magenta('cd kirby/') + '.' +
+			'\nYou can either start up the server with MAMP, XAMPP, or the like, or' +
+			'\nYou can run ' + chalk.magenta('php -S localhost:8080') + '.' +
+			'\nEither way, you have completed this scaffolding, young grasshopper.';
+		console.log(howToInstall);
 	}
 });
 

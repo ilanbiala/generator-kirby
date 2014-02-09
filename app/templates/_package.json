@@ -1,5 +1,5 @@
 {
-  "name": "package",
-  "version": "0.0.0",
-  "dependencies": {}
+	"name": "<%= siteTitle %>",
+	"version": "0.0.0",
+	"dependencies": {}
 }
