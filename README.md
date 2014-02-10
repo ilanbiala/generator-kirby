@@ -1,4 +1,4 @@
-# generator-kirby [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url]
+# generator-kirby [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url][![Dependency Status][daviddm-url]][daviddm-image]
 
 > [Yeoman](http://yeoman.io) generator
 
@@ -24,18 +24,16 @@ $ yo kirby
 
 MIT
 
-[npm-url]: https://npmjs.org/package/generator-kirby
 [npm-image]: https://badge.fury.io/js/generator-kirby.png
+[npm-url]: https://npmjs.org/package/generator-kirby
 
 [travis-image]: https://secure.travis-ci.org/ilanbiala/generator-kirby.png?branch=master
 [travis-url]: https://travis-ci.org/ilanbiala/generator-kirby
 
-[coveralls-status]: https://google.com
 [coveralls-image]: https://google.com
 [coveralls-url]: https://google.com
 
-[dependency-status]: https://google.com
-[daviddm-url]: https://google.com
-[daviddm-image]: https://google.com
+[daviddm-image]: https://david-dm.org/ilanbiala/generator-kirby
+[daviddm-url]: https://david-dm.org/gulpjs/gulp.png?theme=shields.io
 
-[to-use]: [![Coveralls Status][coveralls-image]][coveralls-url] [![Dependency Status][daviddm-url]][daviddm-image]
+[badges]: [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url][![Coveralls Status][coveralls-image]][coveralls-url] [![Dependency Status][daviddm-url]][daviddm-image]

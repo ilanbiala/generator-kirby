@@ -13,7 +13,6 @@
 	"engines": {
 		"node": ">=0.10.0"
 	},
-
 	"files": [
 		"app"
 	],
@@ -25,9 +24,20 @@
 		"chalk": "~0.4.0"
 	},
 	"devDependencies": {
-		"mocha": "*"
+		"mocha": "*",
+		"coveralls": "~2.7.1",
+		"mocha-lcov-reporter": "0.0.1",
+		"blanket": "~1.1.6"
 	},
 	"peerDependencies": {
 		"yo": ">=1.0.0"
+	},
+	"scripts": {
+		"test": "mocha --require blanket"
+	},
+	"config": {
+		"blanket": {
+			"pattern": "app/index.js"
+		}
 	}
 }
