@@ -1,4 +1,4 @@
-# generator-kirby [![Build Status](https://secure.travis-ci.org/ilanbiala/generator-kirby.png?branch=master)](https://travis-ci.org/ilanbiala/generator-kirby)
+# generator-kirby [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url]<!-- [![Coveralls Status][coveralls-image]][coveralls-url] [![Dependency Status][daviddm-url]][daviddm-image]-->
 
 > [Yeoman](http://yeoman.io) generator
 
@@ -23,3 +23,8 @@ $ yo kirby
 ## License
 
 MIT
+
+[npm-url]: https://npmjs.org/package/generator-kirby
+[npm-image]: https://badge.fury.io/js/generator-kirby.png
+[travis-image]: https://secure.travis-ci.org/ilanbiala/generator-kirby.png?branch=master
+[travis-url]: https://travis-ci.org/ilanbiala/generator-kirby
