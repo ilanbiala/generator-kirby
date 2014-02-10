@@ -1,6 +1,6 @@
 {
 	"name": "generator-kirby",
-	"version": "0.1.0",
+	"version": "0.1.8",
 	"description": "Yeoman generator for Bastian Allgeier's Kirby framework",
 	"license": "MIT",
 	"main": "app/index.js",
@@ -26,7 +26,7 @@
 	"devDependencies": {
 		"mocha": "*",
 		"coveralls": "~2.7.1",
-		"mocha-lcov-reporter": "0.0.1",
+		"mocha-lcov-reporter": "~0.0.1",
 		"blanket": "~1.1.6"
 	},
 	"peerDependencies": {
