@@ -39,4 +39,3 @@ MIT
 <!-- [badges]: [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coveralls Status][coveralls-image]][coveralls-url] [![Dependency Status][daviddm-url]][daviddm-image] -->
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/ilanbiala/generator-kirby/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
