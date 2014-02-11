@@ -3,9 +3,9 @@
 var path = require('path');
 var helpers = require('yeoman-generator').test;
 
-describe('kirby generator', function() {
-	beforeEach(function(done) {
-		helpers.testDirectory(path.join(__dirname, 'temp'), function(err) {
+describe('kirby generator', function () {
+	beforeEach(function (done) {
+		helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
 			if (err) {
 				return done(err);
 			}
@@ -17,7 +17,7 @@ describe('kirby generator', function() {
 		}.bind(this));
 	});
 
-	it('creates expected files', function(done) {
+	it('creates expected files', function (done) {
 		var expected = [
 			// add files you expect to exist here.
 			'kirby/.gitignore',
@@ -36,7 +36,7 @@ describe('kirby generator', function() {
 			'someOption': true
 		});
 		this.app.options['skip-install'] = true;
-		this.app.run({}, function() {
+		this.app.run({}, function () {
 			helpers.assertFile(expected);
 			done();
 		});
