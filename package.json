@@ -1,6 +1,6 @@
 {
 	"name": "generator-kirby",
-	"version": "0.1.8",
+	"version": "0.1.9",
 	"description": "Yeoman generator for Bastian Allgeier's Kirby framework",
 	"license": "MIT",
 	"main": "app/index.js",

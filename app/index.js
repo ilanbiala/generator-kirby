@@ -7,20 +7,32 @@ var exec = require('child_process').exec,
 	child;
 
 var whichFolder = 'kirby';
-var gitExists = true;
 
 var KirbyGenerator = yeoman.generators.Base.extend({
-	init: function() {
+	init: function () {
 		this.pkg = yeoman.file.readJSON(path.join(__dirname, '../package.json'));
 
-		this.on('end', function() {
+		this.on('end', function () {
 			if (!this.options['skip-install']) {
 				// this.npmInstall();
 			}
 		});
 	},
 
-	promptForFolder: function() {
+	checkForGit: function () {
+		var done = this.async();
+
+		child = exec('git --version',
+			function (error) {
+				if (error) {
+					console.log('Git does not seem to be installed or is not properly set up in the PATH, please configure this then come back.');
+					return; // REQUIRE GIT
+				}
+				done();
+			}.bind(this));
+	},
+
+	promptForFolder: function () {
 		var done = this.async();
 
 		var prompt = {
@@ -28,71 +40,43 @@ var KirbyGenerator = yeoman.generators.Base.extend({
 			message: 'In which folder would you like this Kirby project to be created?'
 		};
 
-		this.prompt(prompt, function(props) {
+		this.prompt(prompt, function (props) {
 			whichFolder = props.whichFolder;
 			done();
 		}.bind(this));
 	},
 
-	checkForGit: function() {
+	cloneKirby: function () {
 		var done = this.async();
 
-		child = exec('git --version',
-			function(error) {
-				if (error) {
-					console.log('Git does not exist...downloading ZIP...');
-					gitExists = false;
+		child = exec('git clone https://github.com/bastianallgeier/kirbycms.git ' + whichFolder || './kirby',
+			function (error) {
+				if (error !== null) {
+					console.log('error: ' + error);
 				}
 				done();
 			}.bind(this));
 	},
 
-	cloneKirby: function() {
-		if (gitExists) {
-			var done = this.async();
+	removeExtraneousFiles: function () {
+		var done = this.async();
 
-			child = exec('git clone https://github.com/bastianallgeier/kirbycms.git ' + whichFolder || './kirby',
-				function(error, stdout, stderr) {
-					console.log(stdout);
-					console.log('stderr: ' + stderr);
-					if (error !== null) {
-						console.log('exec error: ' + error);
-					}
-					done();
-				}.bind(this));
-
-		}
+		child = exec('rm ./' + whichFolder + '/site/config/config.php ./' + whichFolder + '/content/site.txt',
+			function (error) {
+				if (error !== null) {
+					console.log('error: ' + error);
+				}
+				done();
+			}.bind(this));
 	},
 
-	removeExtraneousFiles: function() {
-		if (gitExists) {
-			var done = this.async();
-
-			child = exec('rm ./' + whichFolder + '/site/config/config.php ./' + whichFolder + '/content/site.txt',
-				function(error, stdout, stderr) {
-					console.log('stdout: ' + stdout);
-					console.log('stderr: ' + stderr);
-					if (error !== null) {
-						console.log('exec error: ' + error);
-					}
-					done();
-				}.bind(this));
-		}
-	},
-
-	downloadKirbyZip: function() {
-		if (!gitExists) {
-
-		}
-	},
-
-	askFor: function() {
+	askFor: function () {
 		var done = this.async();
 
 		// have Yeoman greet the user
 		console.log(this.yeoman);
 
-		// replace it with a short and sweet description of your generator
+		// short and sweet description of your generator
 		console.log(chalk.magenta('You\'re using the fantastic Kirby generator.'));
 
 		var prompts = [{
@@ -118,7 +102,7 @@ var KirbyGenerator = yeoman.generators.Base.extend({
 			default: '© (date: Year)'
 		}];
 
-		this.prompt(prompts, function(props) {
+		this.prompt(prompts, function (props) {
 			this.licenseKey = props.licenseKey;
 			this.siteTitle = props.siteTitle;
 			this.siteAuthor = props.siteAuthor;
@@ -131,22 +115,14 @@ var KirbyGenerator = yeoman.generators.Base.extend({
 		}.bind(this));
 	},
 
-	app: function() {
-		// this.mkdir('kirby');
-		// this.copy('kirby/index.php', 'kirby/index.php');
-		// this.copy('kirby/license.md', 'kirby/license.md');
-		// this.copy('kirby/readme.md', 'kirby/readme.md');
-		// this.directory('kirby/assets/', 'kirby/assets/');
-		// this.directory('kirby/kirby/', 'kirby/kirby/');
-		// this.directory('kirby/site/', 'kirby/site/');
-		// this.directory('kirby/content/', 'kirby/content/');
-
+	app: function () {
+		// copy files with the proper fields filled in with user info
 		this.template('_package.json', whichFolder + '/package.json');
-		this.template('kirby/site/config/config.php', whichFolder + '/site/config/config.php');
-		this.template('kirby/content/site.txt', whichFolder + '/content/site.txt');
+		this.template('config.php', whichFolder + '/site/config/config.php');
+		this.template('site.txt', whichFolder + '/content/site.txt');
 	},
 
-	finish: function() {
+	finish: function () {
 		// Give the user info on how to start developing
 		var howToInstall =
 			'Nice! Now run ' + chalk.magenta('cd ' + whichFolder + '/') + '.' +
