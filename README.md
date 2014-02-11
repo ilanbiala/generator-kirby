@@ -4,6 +4,8 @@
 
 ## Getting Started
 
+#### Note: this generator requires Git to work, please make sure that is installed.
+
 ```
 $ npm install -g yo
 ```
