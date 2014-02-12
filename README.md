@@ -1,6 +1,6 @@
 # generator-kirby [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coveralls Status][coveralls-image]][coveralls-url] [![Dependency Status][daviddm-url]][daviddm-image]
 
-> [Yeoman](http://yeoman.io) generator
+> [Yeoman](http://yeoman.io) generator for Bastian Allgeier's Kirby framework
 
 ## Getting Started
 
