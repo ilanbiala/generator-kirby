@@ -1,6 +1,6 @@
 {
 	"name": "generator-kirby",
-	"version": "0.5.7",
+	"version": "0.6.0",
 	"description": "Yeoman generator for Bastian Allgeier's Kirby framework",
 	"license": "MIT",
 	"main": "app/index.js",
@@ -17,7 +17,7 @@
 		"app"
 	],
 	"keywords": [
-		"yeoman-generator, kirby, kirbycms, Bastian Allgeier, yeoman, PHP, cms"
+		"yeoman-generator, kirby, kirbycms, Bastian Allgeier, yeoman, PHP, cms, blog, scaffolding"
 	],
 	"dependencies": {
 		"yeoman-generator": "~0.16.0",
