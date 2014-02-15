@@ -10,6 +10,7 @@ var CryptoJS = require('crypto-js');
 
 var whichFolder = 'kirby';
 var kirbyPanel;
+var kirbyBlog;
 
 var KirbyGenerator = yeoman.generators.Base.extend({
 	init: function () {
@@ -37,6 +38,12 @@ var KirbyGenerator = yeoman.generators.Base.extend({
 
 	promptForFolder: function () {
 		var done = this.async();
+
+		// have Yeoman greet the user
+		console.log(this.yeoman);
+
+		// short and sweet description of your generator
+		console.log(chalk.magenta('You\'re using the fantastic Kirby generator.'));
 
 		var prompt = {
 			name: 'whichFolder',
@@ -77,12 +84,6 @@ var KirbyGenerator = yeoman.generators.Base.extend({
 	askFor: function () {
 		var done = this.async();
 
-		// have Yeoman greet the user
-		console.log(this.yeoman);
-
-		// short and sweet description of your generator
-		console.log(chalk.magenta('You\'re using the fantastic Kirby generator.'));
-
 		var prompts = [{
 			name: 'licenseKey',
 			message: 'License key:'
@@ -109,6 +110,11 @@ var KirbyGenerator = yeoman.generators.Base.extend({
 			name: 'kirbyPanel',
 			message: 'Would you like the Kirby Panel to be set up?',
 			default: true
+		}, {
+			type: 'confirm',
+			name: 'kirbyBlog',
+			message: 'Would you like a Kirby blog page to be set up?',
+			default: true
 		}];
 
 		this.prompt(prompts, function (props) {
@@ -120,6 +126,7 @@ var KirbyGenerator = yeoman.generators.Base.extend({
 			this.siteCopyright = props.siteCopyright;
 			this.siteCredits = props.siteCredits;
 			kirbyPanel = props.kirbyPanel;
+			kirbyBlog = props.kirbyBlog;
 
 			done();
 		}.bind(this));
@@ -219,12 +226,26 @@ var KirbyGenerator = yeoman.generators.Base.extend({
 	app: function () {
 		// copy files with the proper fields filled in with user info
 		this.template('_package.json', whichFolder + '/package.json');
-		this.template('config.php', whichFolder + '/site/config/config.php');
-		this.template('site.txt', whichFolder + '/content/site.txt');
+		this.template('basic/config.php', whichFolder + '/site/config/config.php');
+		this.template('basic/site.txt', whichFolder + '/content/site.txt');
 
 		if (kirbyPanel) {
-			this.template('admin.php', whichFolder + '/site/panel/accounts/' + this.username + '.php');
+			this.template('panel/admin.php', whichFolder + '/site/panel/accounts/' + this.username + '.php');
 		}
+
+		if (kirbyBlog) {
+			this.mkdir(whichFolder + '/content/04-blog');
+			this.mkdir(whichFolder + '/content/04-blog/01-your-first-article');
+			this.mkdir(whichFolder + '/content/04-blog/02-your-second-article');
+			this.mkdir(whichFolder + '/content/04-blog/03-your-third-article');
+			this.copy('blog/blog.txt', whichFolder + '/content/04-blog/blog.txt');
+			this.copy('blog/blogarticle.txt', whichFolder + '/content/04-blog/01-your-first-article/blogarticle.txt');
+			this.copy('blog/blogarticle.txt', whichFolder + '/content/04-blog/02-your-second-article/blogarticle.txt');
+			this.copy('blog/blogarticle.txt', whichFolder + '/content/04-blog/03-your-third-article/blogarticle.txt');
+			this.copy('blog/blogarticle.php', whichFolder + '/site/templates/blogarticle.php');
+			this.copy('blog/blog.php', whichFolder + '/site/templates/blog.php');
+		}
+
 	},
 
 	finish: function () {

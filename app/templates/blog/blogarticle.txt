@@ -1,0 +1,6 @@
+Title: This is my first Article
+----
+Date: 08.12.2011
+----
+Text: Hello World!
+----
