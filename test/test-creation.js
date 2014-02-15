@@ -21,7 +21,7 @@ describe('kirby generator', function () {
 		}.bind(this));
 	});
 
-	it('creates expected files', function (done) {
+	it('creates all the boilerplate files', function (done) {
 		helpers.mockPrompt(kirby, {
 			whichFolder: 'kirby-mocha'
 		});
@@ -40,9 +40,48 @@ describe('kirby generator', function () {
 			'kirby-mocha/site/'
 		];
 
-		// helpers.mockPrompt(this.app, {
-		// 	'someOption': true
-		// });
+		kirby.options['skip-install'] = true;
+		kirby.run({}, function () {
+			helpers.assertFile(expected);
+			done();
+		});
+	});
+
+	it('creates all the blog files', function (done) {
+		helpers.mockPrompt(kirby, {
+			whichFolder: 'kirby-mocha',
+			kirbyBlog: 'Yes'
+		});
+
+		var expected = [
+			// add files you expect to exist here.
+			'kirby-mocha/content/04-blog/blog.txt',
+			'kirby-mocha/content/04-blog/01-your-first-article/blogarticle.txt',
+			'kirby-mocha/content/04-blog/02-your-second-article/blogarticle.txt',
+			'kirby-mocha/content/04-blog/03-your-third-article/blogarticle.txt',
+			'kirby-mocha/site/templates/blogarticle.php',
+			'kirby-mocha/site/templates/blog.php'
+		];
+
+		kirby.options['skip-install'] = true;
+		kirby.run({}, function () {
+			helpers.assertFile(expected);
+			done();
+		});
+	});
+
+	it('creates all the panel files', function (done) {
+		helpers.mockPrompt(kirby, {
+			whichFolder: 'kirby-mocha',
+			kirbyPanel: 'Yes',
+			username: 'mocha'
+		});
+
+		var expected = [
+			// add files you expect to exist here.
+			'kirby-mocha/site/panel/accounts/mocha.php',
+		];
+
 		kirby.options['skip-install'] = true;
 		kirby.run({}, function () {
 			helpers.assertFile(expected);
