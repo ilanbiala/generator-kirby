@@ -26,8 +26,7 @@ describe('kirby generator', function () {
 			whichFolder: 'kirby-mocha'
 		});
 
-		var expected = [
-			// add files you expect to exist here.
+		var expected = [ // expected files
 			'kirby-mocha/.gitignore',
 			'kirby-mocha/.htaccess',
 			'kirby-mocha/assets/',
@@ -53,8 +52,7 @@ describe('kirby generator', function () {
 			kirbyBlog: 'Yes'
 		});
 
-		var expected = [
-			// add files you expect to exist here.
+		var expected = [ // expected files
 			'kirby-mocha/content/04-blog/blog.txt',
 			'kirby-mocha/content/04-blog/01-your-first-article/blogarticle.txt',
 			'kirby-mocha/content/04-blog/02-your-second-article/blogarticle.txt',
@@ -77,14 +75,63 @@ describe('kirby generator', function () {
 			username: 'mocha'
 		});
 
-		var expected = [
-			// add files you expect to exist here.
+		var expected = [ // expected files
 			'kirby-mocha/site/panel/accounts/mocha.php',
 		];
 
 		kirby.options['skip-install'] = true;
 		kirby.run({}, function () {
 			helpers.assertFile(expected);
+			done();
+		});
+	});
+
+	it('hashes passwords properly using MD5', function (done) {
+		helpers.mockPrompt(kirby, {
+			whichFolder: 'kirby-mocha',
+			kirbyPanel: 'Yes',
+			username: 'mocha',
+			password: 'mocha-test',
+			encryption: 'md5'
+		});
+
+		var expected = [ // expected files
+			'kirby-mocha/site/panel/accounts/mocha.php',
+		];
+
+		kirby.options['skip-install'] = true;
+		kirby.run({}, function () {
+			var mochaUserFile = fs.readFileSync('kirby-mocha/site/panel/accounts/mocha.php');
+			var passwordHashRegex = new RegExp('b18a47c265be207a358e42113d05f53f');
+
+			helpers.assertFile(expected);
+			assert.ok(passwordHashRegex.text(mochaUserFile), 'panel user file does not have properly MD5 hashed password.');
+
+			done();
+		});
+	});
+
+	it('hashes passwords properly using SHA1', function (done) {
+		helpers.mockPrompt(kirby, {
+			whichFolder: 'kirby-mocha',
+			kirbyPanel: 'Yes',
+			username: 'mocha',
+			password: 'mocha-test',
+			encryption: 'sha1'
+		});
+
+		var expected = [ // expected files
+			'kirby-mocha/site/panel/accounts/mocha.php',
+		];
+
+		kirby.options['skip-install'] = true;
+		kirby.run({}, function () {
+			var mochaUserFile = fs.readFileSync('kirby-mocha/site/panel/accounts/mocha.php');
+			var passwordHashRegex = new RegExp('cfc672ce2736e27349ca7a61005fc5f32f9018a5');
+
+			helpers.assertFile(expected);
+			assert.ok(passwordHashRegex.text(mochaUserFile), 'panel user file does not have properly SHA1 hashed password.');
+
 			done();
 		});
 	});
