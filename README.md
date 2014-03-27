@@ -22,6 +22,12 @@ Finally, initiate the generator:
 $ yo kirby
 ```
 
+1. Select a folder for Kirby to be set up in.
+2. Configure some stuff such as license key, site name, author, etc.
+3. Decide whether or not to set up the Kirby panel.
+4. Decide whether or not to set up the blog.
+5. Start testing and developing by running `php -S localhost:8080` or using MAMP, XAMPP, WAMP, etc.
+
 ## License
 
 MIT
