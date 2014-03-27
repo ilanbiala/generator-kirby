@@ -22,11 +22,14 @@ describe('kirby generator', function () {
 	});
 
 	it('creates all the boilerplate files', function (done) {
+		
+		// only information really necessary is the folder
 		helpers.mockPrompt(kirby, {
 			whichFolder: 'kirby-mocha'
 		});
 
-		var expected = [ // expected files
+		// some files that should be created
+		var expected = [
 			'kirby-mocha/.gitignore',
 			'kirby-mocha/.htaccess',
 			'kirby-mocha/assets/',
@@ -40,6 +43,8 @@ describe('kirby generator', function () {
 		];
 
 		kirby.options['skip-install'] = true;
+		
+		// run the test
 		kirby.run({}, function () {
 			helpers.assertFile(expected);
 			done();
@@ -47,12 +52,15 @@ describe('kirby generator', function () {
 	});
 
 	it('creates all the blog files', function (done) {
+		
+		// blog name and confirmation necessary at this step
 		helpers.mockPrompt(kirby, {
 			whichFolder: 'kirby-mocha',
 			kirbyBlog: 'Yes'
 		});
 
-		var expected = [ // expected files
+		// some expected files for the blog
+		var expected = [
 			'kirby-mocha/content/04-blog/blog.txt',
 			'kirby-mocha/content/04-blog/01-your-first-article/blogarticle.txt',
 			'kirby-mocha/content/04-blog/02-your-second-article/blogarticle.txt',
@@ -62,6 +70,8 @@ describe('kirby generator', function () {
 		];
 
 		kirby.options['skip-install'] = true;
+		
+		// run the blog test
 		kirby.run({}, function () {
 			helpers.assertFile(expected);
 			done();
@@ -69,17 +79,20 @@ describe('kirby generator', function () {
 	});
 
 	it('creates all the panel files', function (done) {
+		
+		// the username needs to be known so the filename is correct
 		helpers.mockPrompt(kirby, {
 			whichFolder: 'kirby-mocha',
 			kirbyPanel: 'Yes',
 			username: 'mocha'
 		});
-
-		var expected = [ // expected files
-			'kirby-mocha/site/panel/accounts/mocha.php',
-		];
+		
+		// expected a file with the format {{username}}.php
+		var expected = ['kirby-mocha/site/panel/accounts/mocha.php'];
 
 		kirby.options['skip-install'] = true;
+		
+		// run the test for setting up the panel
 		kirby.run({}, function () {
 			helpers.assertFile(expected);
 			done();
@@ -87,6 +100,8 @@ describe('kirby generator', function () {
 	});
 
 	it('hashes passwords properly using MD5', function (done) {
+		
+		// make sure MD5 hashing is selected
 		helpers.mockPrompt(kirby, {
 			whichFolder: 'kirby-mocha',
 			kirbyPanel: 'Yes',
@@ -95,11 +110,12 @@ describe('kirby generator', function () {
 			encryption: 'md5'
 		});
 
-		var expected = [ // expected files
-			'kirby-mocha/site/panel/accounts/mocha.php',
-		];
+		// make sure the filename matches the format {{username}}.php
+		var expected = ['kirby-mocha/site/panel/accounts/mocha.php'];
 
 		kirby.options['skip-install'] = true;
+		
+		// run the MD5 test, make sure the hashes match
 		kirby.run({}, function () {
 			var mochaUserFile = fs.readFileSync('kirby-mocha/site/panel/accounts/mocha.php');
 			var passwordHashRegex = new RegExp('b18a47c265be207a358e42113d05f53f');
@@ -112,6 +128,8 @@ describe('kirby generator', function () {
 	});
 
 	it('hashes passwords properly using SHA1', function (done) {
+		
+		// make sure SHA1 hashing is selected
 		helpers.mockPrompt(kirby, {
 			whichFolder: 'kirby-mocha',
 			kirbyPanel: 'Yes',
@@ -120,11 +138,12 @@ describe('kirby generator', function () {
 			encryption: 'sha1'
 		});
 
-		var expected = [ // expected files
-			'kirby-mocha/site/panel/accounts/mocha.php',
-		];
+		// filename should match the format {{username}}.php
+		var expected = ['kirby-mocha/site/panel/accounts/mocha.php'];
 
 		kirby.options['skip-install'] = true;
+		
+		// run the SHA1 test, make sure the hashes match
 		kirby.run({}, function () {
 			var mochaUserFile = fs.readFileSync('kirby-mocha/site/panel/accounts/mocha.php');
 			var passwordHashRegex = new RegExp('cfc672ce2736e27349ca7a61005fc5f32f9018a5');
