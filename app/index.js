@@ -147,7 +147,7 @@ var KirbyGenerator = yeoman.generators.Base.extend({
 	},
 
 	downloadPanel: function () {
-		// Download the panel if the user says so
+		// Git clone the panel if the user says so
 		if (kirbyPanel) {
 			var done = this.async();
 
@@ -163,6 +163,7 @@ var KirbyGenerator = yeoman.generators.Base.extend({
 
 	configurePanelFolder: function () {
 		if (kirbyPanel) {
+			// synchronously move some folders around
 			var done = this.async();
 
 			child = exec('mv ' + whichFolder + '/panel/defaults ' + whichFolder + '/site/panel/',
@@ -207,7 +208,8 @@ var KirbyGenerator = yeoman.generators.Base.extend({
 				}],
 				default: 'en'
 			}];
-
+			
+			// remove some unnecessary folders
 			child = exec('rm ' + whichFolder + '/site/panel/accounts/admin.php',
 				function (error) {
 					if (error !== null) {
@@ -215,10 +217,10 @@ var KirbyGenerator = yeoman.generators.Base.extend({
 					}
 
 				});
-
+			
+			// sychronously prompt for some info for the panel user
 			this.prompt(prompts, function (props) {
 				this.username = props.username;
-				// this.password = props.password;
 				this.encryption = props.encryption;
 				this.language = props.language;
 
@@ -239,7 +241,7 @@ var KirbyGenerator = yeoman.generators.Base.extend({
 	},
 
 	app: function () {
-		// copy files with the proper fields filled in with user info
+		// copy files with the proper fields filled in with the gathered info
 		this.template('_package.json', whichFolder + '/package.json');
 		this.template('basic/config.php', whichFolder + '/site/config/config.php');
 		this.template('basic/site.txt', whichFolder + '/content/site.txt');
@@ -260,7 +262,6 @@ var KirbyGenerator = yeoman.generators.Base.extend({
 			this.copy('blog/blogarticle.php', whichFolder + '/site/templates/blogarticle.php');
 			this.copy('blog/blog.php', whichFolder + '/site/templates/blog.php');
 		}
-
 	},
 
 	finish: function () {
