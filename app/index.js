@@ -1,4 +1,6 @@
 'use strict';
+
+// Dependencies
 var util = require('util'),
 	path = require('path'),
 	yeoman = require('yeoman-generator'),
@@ -6,8 +8,10 @@ var util = require('util'),
 	exec = require('child_process').exec,
 	child;
 
+// CryptoJS gives MD5 & SHA1 encryption
 var CryptoJS = require('crypto-js');
 
+// These variables need to be global
 var whichFolder = 'kirby';
 var kirbyPanel;
 var kirbyBlog;
@@ -24,8 +28,10 @@ var KirbyGenerator = yeoman.generators.Base.extend({
 	},
 
 	checkForGit: function () {
+		// Make sure this runs synchronously
 		var done = this.async();
 
+		// execute a git command and check for an error
 		child = exec('git --version',
 			function (error) {
 				if (error) {
@@ -37,6 +43,7 @@ var KirbyGenerator = yeoman.generators.Base.extend({
 	},
 
 	promptForFolder: function () {
+		// Make sure this runs synchronously
 		var done = this.async();
 
 		// have Yeoman greet the user
@@ -44,13 +51,14 @@ var KirbyGenerator = yeoman.generators.Base.extend({
 
 		// short and sweet description of your generator
 		console.log(chalk.magenta('You\'re using the fantastic Kirby generator.'));
-
+		
 		var prompt = {
 			name: 'whichFolder',
 			message: 'In which folder would you like this Kirby project to be created? This can be changed later.',
 			default: 'kirby'
 		};
-
+		
+		// Prompt the user for the folder to set up Kirby in.
 		this.prompt(prompt, function (props) {
 			whichFolder = props.whichFolder;
 			done();
@@ -58,8 +66,10 @@ var KirbyGenerator = yeoman.generators.Base.extend({
 	},
 
 	cloneKirby: function () {
+		// Make sure this runs synchronously
 		var done = this.async();
-
+		
+		// Clone the respository
 		child = exec('git clone https://github.com/bastianallgeier/kirbycms.git ' + whichFolder,
 			function (error) {
 				if (error !== null) {
@@ -70,8 +80,10 @@ var KirbyGenerator = yeoman.generators.Base.extend({
 	},
 
 	removeExtraneousFiles: function () {
+		// Make sure this runs synchronously
 		var done = this.async();
-
+		
+		// Remove unnecessary files
 		child = exec('rm ./' + whichFolder + '/site/config/config.php ./' + whichFolder + '/content/site.txt',
 			function (error) {
 				if (error !== null) {
@@ -82,6 +94,7 @@ var KirbyGenerator = yeoman.generators.Base.extend({
 	},
 
 	askFor: function () {
+		// Make sure this runs synchronously
 		var done = this.async();
 
 		var prompts = [{
@@ -117,6 +130,7 @@ var KirbyGenerator = yeoman.generators.Base.extend({
 			default: true
 		}];
 
+		// Get the user's input on some important stuff
 		this.prompt(prompts, function (props) {
 			this.licenseKey = props.licenseKey;
 			this.siteTitle = props.siteTitle;
@@ -133,6 +147,7 @@ var KirbyGenerator = yeoman.generators.Base.extend({
 	},
 
 	downloadPanel: function () {
+		// Download the panel if the user says so
 		if (kirbyPanel) {
 			var done = this.async();
 
