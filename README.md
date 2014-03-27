@@ -42,3 +42,6 @@ MIT
 
 [bitdeli-image]: https://d2weczhvl823v0.cloudfront.net/ilanbiala/generator-kirby/trend.png
 [bitdeli-url]: https://bitdeli.com/free "Bitdeli Badge"
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/ilanbiala/generator-kirby/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
