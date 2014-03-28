@@ -245,7 +245,7 @@ var KirbyGenerator = yeoman.generators.Base.extend({
 		this.template('_package.json', whichFolder + '/package.json');
 		this.template('basic/config.php', whichFolder + '/site/config/config.php');
 		this.template('basic/site.txt', whichFolder + '/content/site.txt');
-		this.copy('basic/htaccess', whichFolder + '.htaccess');
+		this.copy('basic/htaccess', whichFolder + '/.htaccess');
 
 		if (kirbyPanel) {
 			this.template('panel/admin.php', whichFolder + '/site/panel/accounts/' + this.username + '.php');
