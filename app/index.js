@@ -84,7 +84,7 @@ var KirbyGenerator = yeoman.generators.Base.extend({
 		var done = this.async();
 		
 		// Remove unnecessary files
-		child = exec('rm ./' + whichFolder + '/site/config/config.php ./' + whichFolder + '/content/site.txt',
+		child = exec('rm ./' + whichFolder + '/site/config/config.php ./' + whichFolder + '/content/site.txt' + './htaccess',
 			function (error) {
 				if (error !== null) {
 					console.log(error);
