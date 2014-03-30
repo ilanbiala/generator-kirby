@@ -4,19 +4,15 @@
 
 ## Getting Started
 
-#### Note: this generator requires Git to work, please make sure that is installed.
+#### Note: this generator requires Git to work, please make sure that it is installed.
+
+To install from NPM, run:
 
 ```
-$ npm install -g yo
+$ npm install -g yo generator-kirby
 ```
 
-To install generator-kirby from npm, run:
-
-```
-$ npm install -g generator-kirby
-```
-
-Finally, initiate the generator:
+Initiate the generator:
 
 ```
 $ yo kirby
@@ -26,6 +22,7 @@ $ yo kirby
 2. Configure some stuff such as license key, site name, author, etc.
 3. Decide whether or not to set up the Kirby panel.
 4. Decide whether or not to set up the blog.
+5. Decide whether or not to set up the contact form.
 5. Start testing and developing by running `php -S localhost:8080` or using MAMP, XAMPP, WAMP, etc.
 
 ## Author
