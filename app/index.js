@@ -2,11 +2,11 @@
 
 // Dependencies
 var util = require('util'),
-	path = require('path'),
-	yeoman = require('yeoman-generator'),
-	chalk = require('chalk'),
-	exec = require('child_process').exec,
-	child;
+path = require('path'),
+yeoman = require('yeoman-generator'),
+chalk = require('chalk'),
+exec = require('child_process').exec,
+child;
 
 // CryptoJS gives MD5 & SHA1 encryption
 var CryptoJS = require('crypto-js');
@@ -15,6 +15,7 @@ var CryptoJS = require('crypto-js');
 var whichFolder = 'kirby';
 var kirbyPanel;
 var kirbyBlog;
+var kirbyContactForm;
 
 var KirbyGenerator = yeoman.generators.Base.extend({
 	init: function () {
@@ -128,6 +129,11 @@ var KirbyGenerator = yeoman.generators.Base.extend({
 			name: 'kirbyBlog',
 			message: 'Would you like a Kirby blog page to be set up?',
 			default: true
+		}, {
+			type: 'confirm',
+			name: 'kirbyContactForm',
+			message: 'Would you like a Kirby contact form page to be set up?',
+			default: true
 		}];
 
 		// Get the user's input on some important stuff
@@ -141,7 +147,7 @@ var KirbyGenerator = yeoman.generators.Base.extend({
 			this.siteCredits = props.siteCredits;
 			kirbyPanel = props.kirbyPanel;
 			kirbyBlog = props.kirbyBlog;
-
+			kirbyContactForm = props.kirbyContactForm;
 			done();
 		}.bind(this));
 	},
@@ -231,12 +237,37 @@ var KirbyGenerator = yeoman.generators.Base.extend({
 				}
 
 				var successMessage = 'Fantastic! The panel has been added to your project.' +
-					'\nPlease visit ' + chalk.magenta('/panel') + ' in a browser once' +
-					'\neverything else is set up to log in to your panel.';
+				'\nPlease visit ' + chalk.magenta('/panel') + ' in a browser once' +
+				'\neverything else is set up to log in to your panel.';
 				console.log(successMessage);
 
 				done();
 			}.bind(this));
+		}
+	},
+
+	configureMail: function () {
+		if (kirbyContactForm) {
+			var done = this.async();
+
+			var prompts = [{
+				name: 'adminName',
+				message: 'Who would you like to sender (i.e. Example Admin) to be?'
+			}, {
+				name: 'adminEmail',
+				message: 'What would you like the sender\'s email (i.e. admin@example.com) to be?'
+			}];
+
+			// sychronously prompt for some info for the mail.php file
+			this.prompt(prompts, function (props) {
+				this.adminEmail = props.adminEmail;
+				this.adminName = props.adminName;
+
+				var successMessage = 'Marvelous! The contact form has been set up.';
+				console.log(successMessage);
+
+				done();
+			}.bind(this));	
 		}
 	},
 
@@ -246,33 +277,59 @@ var KirbyGenerator = yeoman.generators.Base.extend({
 		this.template('basic/config.php', whichFolder + '/site/config/config.php');
 		this.template('basic/site.txt', whichFolder + '/content/site.txt');
 		this.copy('basic/htaccess', whichFolder + '/.htaccess');
-		this.copy('basic/editorconfig', whichFolder + '/.editorconfig');
+		this.copy('editorconfig', whichFolder + '/.editorconfig');
 
 		if (kirbyPanel) {
 			this.template('panel/admin.php', whichFolder + '/site/panel/accounts/' + this.username + '.php');
 		}
 
 		if (kirbyBlog) {
-			this.mkdir(whichFolder + '/content/04-blog');
-			this.mkdir(whichFolder + '/content/04-blog/01-your-first-article');
-			this.mkdir(whichFolder + '/content/04-blog/02-your-second-article');
-			this.mkdir(whichFolder + '/content/04-blog/03-your-third-article');
-			this.copy('blog/blog.txt', whichFolder + '/content/04-blog/blog.txt');
-			this.copy('blog/blogarticle.txt', whichFolder + '/content/04-blog/01-your-first-article/blogarticle.txt');
-			this.copy('blog/blogarticle.txt', whichFolder + '/content/04-blog/02-your-second-article/blogarticle.txt');
-			this.copy('blog/blogarticle.txt', whichFolder + '/content/04-blog/03-your-third-article/blogarticle.txt');
+			child = exec('mv ' + whichFolder + '/content/03-contact ' + whichFolder + '/content/04-contact',
+				function (error) {
+					if (error !== null) {
+						console.log(error);
+					}
+				});
+
+			this.mkdir(whichFolder + '/content/03-blog');
+			this.mkdir(whichFolder + '/content/03-blog/01-your-first-article');
+			this.mkdir(whichFolder + '/content/03-blog/02-your-second-article');
+			this.mkdir(whichFolder + '/content/03-blog/03-your-third-article');
+			this.copy('blog/blog.txt', whichFolder + '/content/03-blog/blog.txt');
+			this.copy('blog/blogarticle.txt', whichFolder + '/content/03-blog/01-your-first-article/blogarticle.txt');
+			this.copy('blog/blogarticle.txt', whichFolder + '/content/03-blog/02-your-second-article/blogarticle.txt');
+			this.copy('blog/blogarticle.txt', whichFolder + '/content/03-blog/03-your-third-article/blogarticle.txt');
 			this.copy('blog/blogarticle.php', whichFolder + '/site/templates/blogarticle.php');
 			this.copy('blog/blog.php', whichFolder + '/site/templates/blog.php');
+		}
+
+		if (kirbyContactForm) {
+			child = exec('rm ' + whichFolder + '/content/04-contact/contact.txt',
+				function (error) {
+					if (error !== null) {
+						console.log(error);
+					}
+				});
+
+			this.copy('contact/contact.js', whichFolder + '/assets/scripts/contact.js');
+			this.copy('contact/contact.txt', whichFolder + '/content/04-contact/contact.txt');
+			this.copy('contact/jquery.min.js', whichFolder + '/assets/scripts/jquery.min.js');
+			this.mkdir(whichFolder + '/server');
+			this.template('contact/phpmailer/mail.php', whichFolder + '/server/mail.php');
+			this.copy('contact/phpmailer/class.phpmailer.php', whichFolder + '/server/class.phpmailer.php');
+			this.copy('contact/phpmailer/class.pop3.php', whichFolder + '/server/class.pop3.php');
+			this.copy('contact/phpmailer/class.smtp.php', whichFolder + '/server/class.smtp.php');
+			this.copy('contact/phpmailer/PHPMailerAutoload.php', whichFolder + '/server/PHPMailerAutoload.php');
 		}
 	},
 
 	finish: function () {
 		// Give the user info on how to start developing
 		var howToInstall =
-			'Nice! Now run ' + chalk.magenta('cd ' + whichFolder + '/') + '.' +
-			'\nYou can either start up the server with MAMP, XAMPP, or the like, or' +
-			'\nYou can run ' + chalk.magenta('php -S localhost:8080') + '.' +
-			'\nEither way, you have completed this scaffolding, young grasshopper.';
+		'Nice! Now run ' + chalk.magenta('cd ' + whichFolder + '/') + '.' +
+		'\nYou can either start up the server with MAMP, XAMPP, or the like, or' +
+		'\nYou can run ' + chalk.magenta('php -S localhost:8080') + '.' +
+		'\nEither way, you have completed this scaffolding, young grasshopper.';
 		console.log(howToInstall);
 	}
 });

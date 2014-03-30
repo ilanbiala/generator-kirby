@@ -1,0 +1,26 @@
+Title: Contact
+
+----
+
+Text: ## Drop us a buzz!
+
+We'd love to hear what you have to say, so drop us a line.
+
+<form id="contact-form" role="form" autocomplete="on">
+    <label for="user-name">Full name</label>
+    <input name="user-name" type="text" id="user-name" placeholder="Johnny Appleseed" required>
+    <br>
+	<label for="user-email">Email</label>
+	<input name="user-email" type="email" id="user-email" placeholder="johnny.appleseed@gmail.com" required>
+	<br>
+	<label for="comment">Comment</label>
+	<textarea name="comment" id="comment" rows="3" maxlength="500" required></textarea>
+	<p id="character-count">Characters left: 500</p>
+	<input name="user-bcc" type="checkbox" id="user-bcc">
+	<label>Send a copy of this email to me.</label>
+	<br>
+	<button id="contact-form-submit" type="submit">Submit</button>
+</form>
+<div id="info"></div>
+<script src="/assets/scripts/jquery.min.js"></script>
+<script src="/assets/scripts/contact.js"></script>
