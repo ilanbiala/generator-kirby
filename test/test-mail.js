@@ -68,7 +68,7 @@ describe('kirby generator', function () {
 		  'kirby-mocha/content/03-contact/contact.txt',
 		  'kirby-mocha/lib/mail.php',
 		  'kirby-mocha/lib/class.smtp.php',
-		  'kirby-mocha/lib/class.pop3.php,
+		  'kirby-mocha/lib/class.pop3.php',
 		  'kirby-mocha/lib/class.phpmailer.php',
 		  'kirby-mocha/lib/PHPMailerAutoload.php'
 		];
