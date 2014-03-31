@@ -56,7 +56,7 @@ describe('kirby generator', function () {
 		// make sure the contact form option is selected
 		helpers.mockPrompt(kirby, {
 			whichFolder: 'kirby-mocha',
-			kirbyContactForm: 'Yes',
+			kirbyContactForm: true,
 			adminName: 'Johnny Appleseed',
 			adminEmail: 'johnny.appleseed@gmail.com',
 		});
