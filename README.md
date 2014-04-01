@@ -31,15 +31,13 @@ Ilan Biala
 
 ## License
 
-The MIT License (MIT)
+I'm not going to put a complicated license here because I want as many people to enjoy from this as possible. Just a couple of things to keep in mind:
+1. This is free, public code and its purpose is to help people.
+2. You can use this as much as you want, modify it, distribute it, and whatever else, but don't charge for it, and don't say you made it if you haven't contributed a significant amount.
+3. I'll try to help solve any issues in any way I can, but I make no promises. I try to write tests to make sure that the generator works, but that doesn't mean things can go wrong. If something does, just make an issue and I or someone else will hopefully be your shining knight.
+4. If you want something to be added, please do your due diligence. I try to go back and comment the code every so often, so before you ask for a feature to be added, see if you can submit a pull request.
 
-Copyright (C) 2014 Ilan Biala
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+&copy; 2014 Ilan Biala
 
 [![Bitdeli Badge][bitdeli-image]][bitdeli-url]
 
