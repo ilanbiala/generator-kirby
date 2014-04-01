@@ -32,10 +32,10 @@ Ilan Biala
 ## License
 
 I'm not going to put a complicated license here because I want as many people to enjoy from this as possible. Just a couple of things to keep in mind:
-1. This is free, public code and its purpose is to help people.
-2. You can use this as much as you want, modify it, distribute it, and whatever else, but don't charge for it, and don't say you made it if you haven't contributed a significant amount.
-3. I'll try to help solve any issues in any way I can, but I make no promises. I try to write tests to make sure that the generator works, but that doesn't mean things can go wrong. If something does, just make an issue and I or someone else will hopefully be your shining knight.
-4. If you want something to be added, please do your due diligence. I try to go back and comment the code every so often, so before you ask for a feature to be added, see if you can submit a pull request.
+  1. This is free, public code and its purpose is to help people.
+  2. You can use this as much as you want, modify it, distribute it, and whatever else, but don't charge for it, and don't say you made it if you haven't contributed a significant amount.
+  3. I'll try to help solve any issues in any way I can, but I make no promises. I try to write tests to make sure that the generator works, but that doesn't mean things can go wrong. If something does, just make an issue and I or someone else will hopefully be your shining knight.
+  4. If you want something to be added, please do your due diligence. I try to go back and comment the code every so often, so before you ask for a feature to be added, see if you can submit a pull request.
 
 &copy; 2014 Ilan Biala
 
